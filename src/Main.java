@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Main {
@@ -22,6 +21,7 @@ public class Main {
         int counter = 0;
 
         for (int i = 0; i < 9; i++) {
+            bo2();
             JButton character = new JButton();
             character.setVisible(true);
             character.setBounds(600 + counter, 800, 64, 64);
@@ -65,6 +65,7 @@ public class Main {
     private static JLabel ultlabel = new JLabel();
     private static JButton passive = new JButton();
     private static JLabel passivelabel = new JLabel();
+    private static JButton selectCharacter = new JButton();
 
     private static void bo() {
         name.setForeground(Color.white);
@@ -99,9 +100,10 @@ public class Main {
 
 
     private static void nuierButton(String name1, String klasse1, String ability1, String ability2, String ability3, String ult1, String passive1) {
-
+        System.out.println("y<oo");
         name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         name.setText(name1);
+        System.out.println(name1);
         name.setBackground(Color.darkGray);
         name.setForeground(Color.white);
         name.setBounds(300, 300, 200, 20);
@@ -152,9 +154,17 @@ public class Main {
         jp.updateUI();
     }
 
-    private static void characterActionPerformedClicked(java.awt.event.ActionEvent ent) {
-        bo2();
+    private static boolean clicked = false;
 
+    private static void characterActionPerformedClicked(java.awt.event.ActionEvent ent) {
+        selectCharacter.setText("Choose Agent");
+        selectCharacter.setBackground(Color.darkGray);
+        selectCharacter.setForeground(Color.white);
+        selectCharacter.setBounds(860,700,200,20);
+        selectCharacter.setVisible(true);
+        jp.add(selectCharacter);
+
+        clicked = true;
 
         if (characters.get(0).equals(ent.getSource())) {
 
@@ -215,20 +225,23 @@ public class Main {
     }
 
     private static void characterActionPerformedExited(java.awt.event.MouseEvent evt) {
+        if (clicked == false) {
+            jp.remove(klasse);
+            jp.remove(name);
+            jp.remove(ablt1);
+            jp.remove(ablt2);
+            jp.remove(ablt3);
+            jp.remove(ult);
+            jp.remove(passive);
+            jp.updateUI();
 
-        jp.remove(klasse);
-        jp.remove(name);
-        jp.remove(ablt1);
-        jp.remove(ablt2);
-        jp.remove(ablt3);
-        jp.remove(ult);
-        jp.remove(passive);
-        jp.updateUI();
-
+        }
 
     }
 
     private static void characterActionPerformed(java.awt.event.MouseEvent evt) {
+        jp.remove(selectCharacter);
+        clicked = false;
 
         if (characters.get(0).equals(evt.getSource())) {
 
